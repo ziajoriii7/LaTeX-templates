@@ -1,4 +1,3 @@
-
 DOC = <.tex-filename-no-extension>
 
 LATEX = lualatex
@@ -10,11 +9,12 @@ $(DOC).pdf: $(DOC).tex
 	$(LATEX) $(LATEX_OPTS) $(DOC)
 
 clean:
-	psh -c "Remove-Item -Force $(DOC).* -Include *.aux, *.log, *.out, *.toc -ErrorAction SilentlyContinue"
-	pwsh -c "Remove-Item -Force $(DOC)-plantuml.* -ErrorAction SilentlyContinue"
-	pwsh -c "Remove-Item -Force $(DOC).pytxcode -ErrorAction SilentlyContinue"
+	del /Q /F $(DOC).aux $(DOC).log $(DOC).out $(DOC).toc
+	del /Q /F $(DOC)-plantuml.*
+	del /Q /F $(DOC).pytxcode
 
 cleanall: clean
-	pwsh -c "Remove-Item -Force $(DOC).pdf -ErrorAction SilentlyContinue"
+	del /Q /F $(DOC).pdf
 
 .PHONY: all clean cleanall
+
