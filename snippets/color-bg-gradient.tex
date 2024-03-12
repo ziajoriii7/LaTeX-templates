@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{background}
+\usepackage{lipsum}
+
+\definecolor{bg-gradient1}{RGB}{251,234,250}
+\definecolor{bg-gradient2}{RGB}{205,210,225}
+
+\backgroundsetup{
+scale=1,
+color=black,
+opacity=1,
+angle=0,
+contents={
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[top color=bg-gradient1,bottom color=bg-gradient2] (current page.south west) rectangle (current page.north east);
+  \end{tikzpicture}
+  }
+}
+
+\begin{document}
+
+\lipsum[1-10]
+
+\end{document}
