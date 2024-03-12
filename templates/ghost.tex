@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+
+\usepackage[total={6in, 8in}, bottom=1.5in, top=1.5in]{geometry}
+%% \usepackage[a4paper, left=1in, right=1in, top=1.5in, bottom=1.5in]{geometry}
+\usepackage{setspace}
+\setstretch{1.15}
+
+\usepackage{amsmath}
+\usepackage{titling}
+% \setlength{\droptitle}{-7em}
+
+\usepackage{lipsum}
+
+
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{alice}{rgb}{0.96,0.98,0.99}
+\definecolor{ghost}{rgb}{0.79,0.82,0.97}
+\definecolor{light-gray}{gray}{0.25}
+
+\usepackage{minted}
+\usemintedstyle{friendly}
+
+\newcommand{\inlinecode}[1]{\colorbox{alice}{\mintinline[escapeinside=||]{python}{#1}}}
+
+\usepackage{luacode}
+\usepackage[us,12hr]{datetime} 
+
+\begin{luacode}
+function get_adjusted_time(hours_offset)
+    local current_time = os.time()
+    local adjusted_time = os.date("*t", current_time + hours_offset * 3600)
+    tex.sprint(string.format("%02d:%02d", adjusted_time.hour, adjusted_time.min))
+end
+\end{luacode}
+\newcommand{\adjustedtime}[1]{\directlua{get_adjusted_time(#1)}}
+
+\newdateformat{myformat}{\monthname[\THEMONTH] \THEDAY, \THEYEAR; \adjustedtime{-0}}
+
+\title{titleName}
+\author{@ziajoriii7}
+\date{\myformat\today}
+
+\begin{document}
+
+\maketitle
+
+
+this is a comment: \inlinecode{# Note: |$<some-mathematical-expression >$|}
+\newline
+
+colored inline code: \inlinecode{
+    Note: |$<some-mathematical-expression >$|
+}
+
+colored inline code: \inlinecode{
+    print(" ")
+}
+
+- No bgcolor: \mintinline{python}{print(" ")}
+\begin{minted}[
+    frame=single,
+    breaklines,
+    framesep=2mm,
+    escapeinside=||,
+    mathescape=true,
+    linenos,
+    fontsize=\small
+    ]{python}
+ # python code
+ |$<some-mathematical-expression >$|
+\end{minted}
+
+\begin{minted}[
+    frame=single,
+    breaklines,
+    framesep=2mm,
+    escapeinside=||,
+    mathescape=true,
+    bgcolor=alice,
+    linenos,
+    fontsize=\small
+]{python}
+# python code
+ |$<some-mathematical-expression >$|
+\end{minted}
+
+
+
+\lipsum[1-7]
+
+
+
+
+\end{document}
